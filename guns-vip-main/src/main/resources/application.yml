@@ -1,0 +1,52 @@
+server:
+  port: 8280
+
+guns:
+  spring-session-open: false        #是否开启spring session,如果是多机环境需要开启(true/false)
+  session-invalidate-time: 1800     #session失效时间(只在单机环境下生效，多机环境在SpringSessionConfig类中配置) 单位：秒
+  session-validation-interval: 900  #多久检测一次失效的session(只在单机环境下生效) 单位：秒
+
+beetl:
+  resource-auto-check: true         #热加载beetl模板，开发时候用
+
+spring:
+  profiles:
+    active: dunn_random
+  mvc:
+    view:
+      prefix: /pages
+    async:
+      request-timeout: 10M
+  servlet:
+    multipart:
+      max-file-size: 400MB
+      max-request-size: 1GB
+
+
+mybatis-plus:
+  typeAliasesPackage: cn.stylefeng.guns.modular.system.model, com.xsl.crm.proposal.jackpot.entity
+  mapper-locations:
+    - classpath*:cn/stylefeng/guns/**/mapping/*.xml
+    - classpath*:com/xsl/crm/**/mapping/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl:
+    log-prefix: daosql.
+  type-enums-package: com.xsl.crm.enums
+
+logging:
+  level:
+    root: info
+
+  path: /logs/xsl
+
+mobile-data:
+  flux:
+    # 任务通过文件获取的待储存记录最多 5万条，超过5万，则读取文件的线程进入阻塞状态，等待队列被消费后再唤醒
+    queue: 50000
+    # 从队列中一次拿出5000条记录批量入库，注意：这只是调用时一次传入5000条。不代表一定会一次存入5000条，因为dao层获取到5000条后可能会拆分成多批次存库。
+    buffer: 5000
+
+  manager:
+    idle: 600000
+    idle-check-interval: 600000

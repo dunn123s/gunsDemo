@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.crm.line.mapper.LineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xsl.crm.line.entity.Line">
+        <id column="id" property="id" />
+        <result column="line" property="line" />
+        <result column="sys_platform" property="sysPlatform" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", line AS "line", sys_platform AS "sysPlatform"
+    </sql>
+
+
+    <select id="customList" resultType="com.xsl.crm.line.model.result.LineResult" parameterType="com.xsl.crm.line.model.params.LineParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_line where 1 = 1
+            <if test="paramCondition.line != null and paramCondition.line != ''">
+                and line like CONCAT('%',#{paramCondition.line},'%')
+            </if>
+            <if test="paramCondition.sysPlatform != null and paramCondition.sysPlatform != ''">
+                and sys_platform like CONCAT('%',#{paramCondition.sysPlatform},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.xsl.crm.line.model.params.LineParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_line where 1 = 1
+            <if test="paramCondition.line != null and paramCondition.line != ''">
+                and line like CONCAT('%',#{paramCondition.line},'%')
+            </if>
+            <if test="paramCondition.sysPlatform != null and paramCondition.sysPlatform != ''">
+                and sys_platform like CONCAT('%',#{paramCondition.sysPlatform},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="com.xsl.crm.line.model.result.LineResult" parameterType="com.xsl.crm.line.model.params.LineParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_line where 1 = 1
+            <if test="paramCondition.line != null and paramCondition.line != ''">
+                and line like CONCAT('%',#{paramCondition.line},'%')
+            </if>
+            <if test="paramCondition.sysPlatform != null and paramCondition.sysPlatform != ''">
+                and sys_platform like CONCAT('%',#{paramCondition.sysPlatform},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.xsl.crm.line.model.params.LineParam">
+        select
+        <include refid="Base_Column_List"/>
+        from t_line where 1 = 1
+            <if test="paramCondition.line != null and paramCondition.line != ''">
+                and line like CONCAT('%',#{paramCondition.line},'%')
+            </if>
+            <if test="paramCondition.sysPlatform != null and paramCondition.sysPlatform != ''">
+                and sys_platform like CONCAT('%',#{paramCondition.sysPlatform},'%')
+            </if>
+    </select>
+
+</mapper>
