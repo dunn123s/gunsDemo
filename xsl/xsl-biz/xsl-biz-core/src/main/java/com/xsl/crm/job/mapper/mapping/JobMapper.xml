@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.crm.job.mapper.JobMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xsl.crm.job.entity.Job">
+        <id column="job_id" property="jobId" />
+        <result column="job_name" property="jobName" />
+        <result column="job_group" property="jobGroup" />
+        <result column="invoke_target" property="invokeTarget" />
+        <result column="cron_expression" property="cronExpression" />
+        <result column="misfire_policy" property="misfirePolicy" />
+        <result column="concurrent" property="concurrent" />
+        <result column="status" property="status" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        job_id AS "jobId", job_name AS "jobName", job_group AS "jobGroup", invoke_target AS "invokeTarget", cron_expression AS "cronExpression", misfire_policy AS "misfirePolicy", concurrent AS "concurrent", status AS "status", create_by AS "createBy", create_time AS "createTime", update_by AS "updateBy", update_time AS "updateTime", remark AS "remark"
+    </sql>
+
+
+    <select id="customList" resultType="com.xsl.crm.job.model.result.JobResult" parameterType="com.xsl.crm.job.model.params.JobParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_job where 1 = 1
+            <if test="paramCondition.jobName != null and paramCondition.jobName != ''">
+                and job_name like CONCAT('%',#{paramCondition.jobName},'%')
+            </if>
+            <if test="paramCondition.jobGroup != null and paramCondition.jobGroup != ''">
+                and job_group like CONCAT('%',#{paramCondition.jobGroup},'%')
+            </if>
+            <if test="paramCondition.status != null and paramCondition.status != ''">
+                and status like CONCAT('%',#{paramCondition.status},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="com.xsl.crm.job.model.params.JobParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_job where 1 = 1
+            <if test="paramCondition.jobName != null and paramCondition.jobName != ''">
+                and job_name like CONCAT('%',#{paramCondition.jobName},'%')
+            </if>
+            <if test="paramCondition.jobGroup != null and paramCondition.jobGroup != ''">
+                and job_group like CONCAT('%',#{paramCondition.jobGroup},'%')
+            </if>
+            <if test="paramCondition.status != null and paramCondition.status != ''">
+                and status like CONCAT('%',#{paramCondition.status},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="com.xsl.crm.job.model.result.JobResult" parameterType="com.xsl.crm.job.model.params.JobParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_job where 1 = 1
+            <if test="paramCondition.jobName != null and paramCondition.jobName != ''">
+                and job_name like CONCAT('%',#{paramCondition.jobName},'%')
+            </if>
+            <if test="paramCondition.jobGroup != null and paramCondition.jobGroup != ''">
+                and job_group like CONCAT('%',#{paramCondition.jobGroup},'%')
+            </if>
+            <if test="paramCondition.status != null and paramCondition.status != ''">
+                and status like CONCAT('%',#{paramCondition.status},'%')
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="com.xsl.crm.job.model.params.JobParam">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_job where 1 = 1
+            <if test="paramCondition.jobName != null and paramCondition.jobName != ''">
+                and job_name like CONCAT('%',#{paramCondition.jobName},'%')
+            </if>
+            <if test="paramCondition.jobGroup != null and paramCondition.jobGroup != ''">
+                and job_group like CONCAT('%',#{paramCondition.jobGroup},'%')
+            </if>
+            <if test="paramCondition.status != null and paramCondition.status != ''">
+                and status like CONCAT('%',#{paramCondition.status},'%')
+            </if>
+    </select>
+
+    <select id="selectJobById" parameterType="Long" resultType="com.xsl.crm.job.entity.Job">
+        <include refid="Base_Column_List"/>
+        where job_id = #{jobId}
+    </select>
+
+
+</mapper>
