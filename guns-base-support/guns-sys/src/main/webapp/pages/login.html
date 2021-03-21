@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${ctxPath}/assets/common/css/login.css?v=${constants.getReleaseVersion()}" media="all">
     <style>
         body {
-            background-image: url("${ctxPath}/assets/common/images/bg_login2.svg");
+            background-image: url("../assets/common/images/bg_login2.png");
             background-position: center 110px;
             background-repeat: no-repeat;
             background-size: 100%;
@@ -132,7 +132,13 @@
 
     });
 </script>
-
+<script>
+    //粒子背景特效
+    $('body').particleground({
+        dotColor: '#E8DFE8',
+        lineColor: '#133b88'
+    });
+</script>
 
 </body>
 </html>
