@@ -629,4 +629,6 @@ INSERT INTO `t_line` VALUES (570, 'acsj02001', 'YB');
 INSERT INTO `t_line` VALUES (568, '34534', 'werw');
 INSERT INTO `t_line` VALUES (569, '34534', 'IOC');
 
+
+
 SET FOREIGN_KEY_CHECKS = 1;
