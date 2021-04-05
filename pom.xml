@@ -153,6 +153,12 @@
                 <artifactId>JustAuth</artifactId>
                 <version>${just.auth.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.chuang.urras</groupId>
+                <artifactId>urras-tools-kit</artifactId>
+                <version>1.0.0.RELEASE</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>

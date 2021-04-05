@@ -34,11 +34,5 @@
             <artifactId>xlsx-streamer</artifactId>
             <version>1.2.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.xsl</groupId>
-            <artifactId>xsl-agent-manager</artifactId>
-            <version>1.0.0</version>
-        </dependency>
     </dependencies>
 </project>
