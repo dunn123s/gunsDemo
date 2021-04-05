@@ -41,7 +41,7 @@ public class SSLGenerator {
     private static final int BATCH = 300;//一波最多300条，不要改
 
     public static void main(String[] args) {
-        genSH(SAVE_PATH + "\\sh"); //生成脚本
+//        genSH(SAVE_PATH + "\\sh"); //生成脚本
 
 
 //        genNginxCfgJoin(SAVE_PATH + "\\cfg"); //生成配置文件
