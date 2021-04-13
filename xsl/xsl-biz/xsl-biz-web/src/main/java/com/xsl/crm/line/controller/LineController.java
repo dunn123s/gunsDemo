@@ -1,14 +1,21 @@
 package com.xsl.crm.line.controller;
 
+import cn.stylefeng.guns.base.log.BussinessLog;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
+import cn.stylefeng.guns.sys.core.log.LogObjectHolder;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.xsl.crm.line.entity.Line;
+import com.xsl.crm.line.entity.LineDict;
 import com.xsl.crm.line.model.params.LineParam;
 import com.xsl.crm.line.service.LineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -56,7 +63,12 @@ public class LineController extends BaseController {
      * @Date 2021-03-16
      */
     @RequestMapping("/edit")
-    public String edit() {
+    public String edit(@RequestParam int id ) {
+        if(ToolUtil.isEmpty(id)){
+            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        }
+        Line line = this.lineService.getById(id);
+        LogObjectHolder.me().set(line);
         return PREFIX + "/line_edit.html";
     }
 
@@ -68,6 +80,7 @@ public class LineController extends BaseController {
      */
     @RequestMapping("/addItem")
     @ResponseBody
+    @BussinessLog(value = "添加线路", key = "line", dict = LineDict.class)
     public ResponseData addItem(LineParam lineParam) {
         this.lineService.add(lineParam);
         return ResponseData.success();
@@ -81,6 +94,7 @@ public class LineController extends BaseController {
      */
     @RequestMapping("/editItem")
     @ResponseBody
+    @BussinessLog(value = "编辑线路", key = "id", dict = LineDict.class)
     public ResponseData editItem(LineParam lineParam) {
         this.lineService.update(lineParam);
         return ResponseData.success();
@@ -94,6 +108,7 @@ public class LineController extends BaseController {
      */
     @RequestMapping("/delete")
     @ResponseBody
+    @BussinessLog(value = "删除线路", key = "id", dict = LineDict.class)
     public ResponseData delete(LineParam lineParam) {
         this.lineService.delete(lineParam);
         return ResponseData.success();
