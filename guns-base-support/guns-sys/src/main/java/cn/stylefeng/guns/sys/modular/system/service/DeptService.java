@@ -11,12 +11,10 @@ import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.chuang.urras.toolskit.basic.StringKit;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -152,33 +150,41 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
         return this.baseMapper.allList(deptId);
     }
 
+    //根据部门id查找部门用户
     public List<User> getUsersByDeptId(Long deptId) {
-        //3.5, 查找我所在部门以及所有子部门
-        List<Dept> depts = lambdaQuery().like(Dept::getPids, "[" + deptId + "]")
-                .list();
-        if(depts.isEmpty()){
-            Long pid = lambdaQuery().like(Dept::getDeptId, deptId).one().getPid();
-            if(StringKit.notBlank(String.valueOf(pid))){
-                depts = lambdaQuery().eq(Dept::getDeptId, pid ).list();
-            }
-        }
-
+        //根据id查找部门
         Dept dept = lambdaQuery().eq(Dept::getDeptId, deptId).one();
-        if(null != dept) {
-            depts.add(dept);
-        }
 
-        if(depts.isEmpty()) {
-            return Collections.emptyList();
+        String pids = dept.getPids();
+        String[] pidArr = pids.replace("[0],[24],[26]"," ")
+                .replace("[0],[24]"," ")
+                .replace("[", "")
+                .replace("]", "").trim().split(",");
+        if(pidArr.length==0){
+            //根据部门id查询pids
+            List<Dept> list = lambdaQuery().like(Dept::getPids, "[" + dept.getDeptId() + "]").list();
+            if (list.size()==0){
+                Dept one = lambdaQuery().eq(Dept::getDeptId, dept.getDeptId()).one();
+                list.add(one);
+            }
+            Object[] objects = list.stream().map(Dept::getDeptId).collect(Collectors.toList()).toArray();
+            pidArr = longToString(objects);
         }
+        List<Dept> list = lambdaQuery().in(Dept::getDeptId, pidArr).list();
+        list.add(dept);
 
-        Set<Long> deptIds = depts.stream().map(Dept::getDeptId).collect(Collectors.toSet());
-
-        if(deptIds.isEmpty()) {
-            return Collections.emptyList();
-        }
+        Set<Long> deptIds = list.stream().map(Dept::getDeptId).collect(Collectors.toSet());
 
         //4， 如果我是组长，查找我所在部门的所有员工。
         return userService.lambdaQuery().in(User::getDeptId, deptIds).list();
+    }
+
+    public static String[] longToString(Object[] array){
+        if(array == null || array.length == 0) return null;
+        String[] strArr = new String[array.length];
+        for(int i=0;i<strArr.length;i++){
+            strArr[i] = String.valueOf(array[i]);
+        }
+        return strArr;
     }
 }
