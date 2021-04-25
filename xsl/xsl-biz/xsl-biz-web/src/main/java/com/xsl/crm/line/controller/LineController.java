@@ -108,8 +108,13 @@ public class LineController extends BaseController {
      */
     @RequestMapping("/delete")
     @ResponseBody
-    @BussinessLog(value = "删除线路", key = "id", dict = LineDict.class)
+    @BussinessLog(value = "删除线路", key = "line", dict = LineDict.class)
     public ResponseData delete(LineParam lineParam) {
+        if(ToolUtil.isEmpty(lineParam.getId())){
+            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        }
+        Line line = this.lineService.getById(lineParam.getId());
+        LogObjectHolder.me().set(line);
         this.lineService.delete(lineParam);
         return ResponseData.success();
     }

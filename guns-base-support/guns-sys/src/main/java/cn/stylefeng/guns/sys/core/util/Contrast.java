@@ -127,6 +127,16 @@ public class Contrast {
         }
         return str;
     }
+    /**
+     * 删除日志记录走这里
+     *
+     * @author stylefeng
+     * @Date 2017/5/9 19:34
+     */
+    public static String contrastObjD(Class dictClass, String key, Object pojo1, Map<String, String> pojo2){
+        String s = pojo1.toString();
+        return s;
+    }
 
     /**
      * 比较两个对象pojo1和pojo2,并输出不一致信息

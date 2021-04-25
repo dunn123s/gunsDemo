@@ -18,7 +18,7 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
     Line.initColumn = function () {
         return [[
             {type: 'checkbox'},
-            {field: 'id', hide: true, title: 'ID'},
+            {field: 'id', sort: true, title: 'ID',width:"5%"},
             {field: 'line', sort: true, title: '线路'},
             {field: 'sysPlatform', sort: true, title: '系统平台'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
@@ -88,7 +88,7 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             ajax.set("id", data.id);
             ajax.start();
         };
-        Feng.confirm("是否删除?", operation);
+        Feng.confirm("是否删除"+data.line+"?", operation);
     };
 
     // 渲染表格

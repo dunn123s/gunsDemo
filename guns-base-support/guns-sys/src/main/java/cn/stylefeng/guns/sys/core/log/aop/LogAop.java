@@ -109,7 +109,12 @@ public class LogAop {
             Object obj1 = LogObjectHolder.me().get();
             Map<String, String> obj2 = HttpContext.getRequestParameters();
             msg = Contrast.contrastObj(dictClass, key, obj1, obj2);
-        } else {
+        }else if(bussinessName.contains("删除")){
+            Object obj1 = LogObjectHolder.me().get();
+            Map<String, String> obj2 = HttpContext.getRequestParameters();
+            msg = Contrast.contrastObjD(dictClass, key, obj1, obj2);
+        }
+        else {
             Map<String, String> parameters = HttpContext.getRequestParameters();
             AbstractDictMap dictMap = (AbstractDictMap) dictClass.newInstance();
             msg = Contrast.parseMutiKey(dictMap, key, parameters);
