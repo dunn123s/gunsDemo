@@ -41,7 +41,7 @@ public class SSLGenerator {
     private static final int BATCH = 300;//一波最多300条，不要改
 
     public static void main(String[] args) {
-//        genSH(SAVE_PATH + "\\sh"); //生成脚本
+        genSH(SAVE_PATH + "\\sh"); //生成脚本
 
 
 //        genNginxCfgJoin(SAVE_PATH + "\\cfg"); //生成配置文件
@@ -229,3 +229,46 @@ public class SSLGenerator {
         inputData = s.toString();
     }
 }
+
+
+
+
+
+
+
+
+
+/*
+字典三级联动：
+
+注意： 第三个如果不加  dict-value="dictId" 属性，传到后台的就是字典的code而不是ID
+
+<label class="layui-label" for="subjectsOne">一级科目:</label>
+<div class="layui-inline">
+    <select id="subjectsOne" class="layui-input" type="text" placeholder="一级科目" lay-search
+            dict-type="ACCOUNTS_LIST_SUBJECTS_ONE"
+            dict-value="dictId" dict-param="parentId" dict-filter="0"
+            lay-filter="subjectsOne">
+    </select>
+</div>
+
+<label class="layui-label" for="subjectsTwo">二级科目:</label>
+<div class="layui-inline">
+    <select id="subjectsTwo" class="layui-input" type="text" placeholder="二级科目" lay-search
+            dict-type="ACCOUNTS_LIST_SUBJECTS_ONE" dict-filter="elem:subjectsOne"
+            dict-value="dictId" dict-param="parentId"  dict-filter="1"
+            lay-filter="subjectsTwo">
+    </select>
+</div>
+
+<label class="layui-label" for="subjectsThree">三级科目:</label>
+<div class="layui-inline">
+    <select id="subjectsThree" class="layui-input" type="text" placeholder="三级科目" lay-search
+            dict-type="ACCOUNTS_LIST_SUBJECTS_ONE" dict-filter="elem:subjectsTwo"
+
+            dict-value="dictId" dict-param="parentId"  dict-filter="2"
+            lay-filter="subjectsThree">
+    </select>
+</div>
+
+*/
